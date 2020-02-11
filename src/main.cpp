@@ -1,4 +1,5 @@
 #include <Arduino.h>
+#include <SevSegShift.h>
 
 // Starting from top to bottom (first register: 0..7, second register: 8..16)
                         // Digit A, B, C, D, E, F, G, DP
@@ -11,39 +12,12 @@ byte shift_map_segments[] = {1, 4, 5, 8+1};
 #define SHIFT_PIN_SHCP 11
 #define SHIFT_PIN_DS   12
 
-class Base {
-public:
-  virtual void printBase();
-  void print();
-};
-
-class Child:public Base {
-public:
-  virtual void printBase();
-};
-
-void Base::print() {
-  printBase();
-}
-
-void Base::printBase() {
-  Serial.println("BASE");
-}
-void Child::printBase() {
-  Serial.println("CHILD");
-}
-
-Base base = Base();
-Base *pBase = new Base();
-Child child = Child();
-Child *pChild = new Child();
 
 void setup() {
   Serial.begin(115200);
-  base.print();
-  pBase->print();
-  child.print();
-  pChild->print();
+  SevSegShift sevsegshift = SevSegShift();
+
+  sevsegshift.begin();
 }
 
 void loop() {
