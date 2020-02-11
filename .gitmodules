@@ -1,0 +1,3 @@
+[submodule "lib/SevSeg"]
+	path = lib/SevSeg
+	url = git@github.com:bridystone/SevSeg.git
