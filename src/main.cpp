@@ -18,20 +18,20 @@ uint8_t segment_pins[] = {A4, A0, 3, 1, 0, A3, 4, 2};
 // Starting from top to bottom (first register: 0..7, second register: 8..16)
 // Segment-Ports of Shift register(s) A, B, C, D, E, F, G, DP
                           // A  B   C    D    E   F   G    DP
-byte shift_map_segments[] = {2, 6, 8+3, 8+5, 8+6, 3, 8+2, 8+4}; //shift pins 0, 7, 8+0, 8+8 not in use
+byte shift_map_segments[] = {3, 7, 8+4, 8+6, 8+7, 4, 8+3, 8+5}; //shift pins 0, 7, 8+0, 8+8 not in use
 // Digits-Ports of Shift Register(s) 1, 2, 3, 4
-byte shift_map_digits[NUM_OF_DIGITS] = {1, 4, 5, 8+1};
+byte shift_map_digits[NUM_OF_DIGITS] = {2, 5, 6, 8+2};
 
-#define SHIFT_PIN_STCP 10
+#define SHIFT_PIN_DS   10
 #define SHIFT_PIN_SHCP 11
-#define SHIFT_PIN_DS   12
+#define SHIFT_PIN_STCP 12
 
 
 SevSeg sevseg;
 SevSegShift sevsegshift(SHIFT_PIN_DS, SHIFT_PIN_SHCP, SHIFT_PIN_STCP);
 
 void setup() {
-  Serial.begin(115200);
+  //Serial.begin(115200); // interferes with Display ... :()
 
   // prepare sevseg
   sevseg.begin(COMMON_CATHODE, size_of_digit_pins, digit_pins, segment_pins);
@@ -39,7 +39,7 @@ void setup() {
 
   // prepare sevsegshift
   sevsegshift.begin(
-    COMMON_CATHODE,
+    COMMON_ANODE,
     NUM_OF_DIGITS,
     shift_map_digits,
     shift_map_segments
