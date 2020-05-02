@@ -1,3 +1,4 @@
 [submodule "lib/SevSeg"]
 	path = lib/SevSeg
-	url = git@github.com:bridystone/SevSeg.git
+	url = git@github.com:bridystone/SevSegShift.git
+	branch = DigitOnController
