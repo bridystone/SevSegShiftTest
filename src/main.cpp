@@ -1,23 +1,31 @@
 #include <Arduino.h>
 #include <SevSegShift.h>
 
-// DIGIT PINS = specifying one of the 4 digits
-uint8_t digit_pins[] = {4, 5, 6, 7}; // These are the PINS of the Arduino
-const int size_of_digit_pins = sizeof(digit_pins) / sizeof(digit_pins[0]);
-// representing the actual Segement PINs
-                      //  A  B  C  D  E  F  G  DP
-uint8_t segment_pins[] = {0, 1, 2, 3, 4, 5, 6, 7}; // these are the PINs of the Shift register
-
-/*
-  SevSegShift information 
-  */
 #define NUM_OF_DIGITS 4
 
+#define SHIFT_PIN_SHCP 6
+#define SHIFT_PIN_STCP 7
 #define SHIFT_PIN_DS   8
-#define SHIFT_PIN_STCP 9
-#define SHIFT_PIN_SHCP 10
 
-SevSegShift sevsegshift(SHIFT_PIN_DS, SHIFT_PIN_SHCP, SHIFT_PIN_STCP, 1, true);
+// DIGIT PINS = specifying one of the 4 digits
+uint8_t digit_pins[] = {5, 4, 3, 2}; // These are the PINS of the ** Arduino **
+// representing the actual Segement PINs
+                      //  A  B  C  D  E  F  G  DP
+uint8_t segment_pins[] = {0, 2, 4, 6, 7, 1, 3, 5}; // these are the PINs of the ** Shift register **
+
+
+SevSegShift sevsegshift(
+                  SHIFT_PIN_DS, 
+                  SHIFT_PIN_SHCP, 
+                  SHIFT_PIN_STCP, 
+                  1, /* number of shift registers there is only 1 Shiftregister 
+                        used for all Segments (digits are on Controller)
+                        default value = 2 (see SevSegShift example)
+                        */
+                  true /* Digits are connected to Arduino directly 
+                          default value = false (see SevSegShift example)
+                        */
+                );
 
 void setup() {
 
@@ -28,7 +36,6 @@ void setup() {
     digit_pins,
     segment_pins
   );
-  sevsegshift.setBrightness(-100); 
 }
 
 /****************************/
